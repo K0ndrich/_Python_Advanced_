@@ -51,3 +51,4 @@ type(bitcoin_prices)  # -> <class 'list'>
 len(bitcoin_prices)  # -> 10
 max(bitcoin_prices)  # -> 64291.23
 min(bitcoin_prices)  # -> 64291.22
+   
