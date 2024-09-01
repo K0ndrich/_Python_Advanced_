@@ -72,6 +72,4 @@ def fight(*, character_1: Character, character_2: Character):
     print(f"Character_2 -> {character_2} , is_alive -> {character_2.is_alive()}")
 
 
-ork_1 = Ork(level=7)
-print(ork_1.defense)
-ork_1.defense = 100
+
