@@ -52,6 +52,16 @@ class Ork(Character):
     # базовое значение брони персонажа
     base_defense = 15
 
+    # пререопредиляем метод брони для нашего орка
+    @property
+    def defense(self):
+
+        defense = super().defense
+
+        # увичиваем броню если у орка здоровье меньше 50 очков
+        if self.health_points < 50:
+            defense *= 3
+
 
 class Elf(Character):
 
@@ -70,6 +80,3 @@ def fight(*, character_1: Character, character_2: Character):
 
     print(f"Character_1 -> {character_1} , is_alive -> {character_1.is_alive()}")
     print(f"Character_2 -> {character_2} , is_alive -> {character_2.is_alive()}")
-
-
-
