@@ -35,17 +35,17 @@ class Character:
         return defense
 
     # указывает что наше текущее существо(обьект класса) живое или нет
-    def is_alive(self):
-        return self.health_points > 0  # -> True/False
+    def is_alive(self) -> bool:
+        return self.health_points > 0
 
-    # возвращает максимальное значение существа
+    # возвращает максимальное значение здоровья существа
     @property
     def max_health_points(self) -> int:
-        return 1
+        return self.level * self.base_health_points
 
     # возвращает значение здоровья существа в процентах
     def health_points_percent(self) -> float:
-        return self.health_points / self.max_health_points
+        return 100 * self.health_points / self.max_health_points
 
     def __str__(self):
         return f"{self.character_name} -> (level:{self.level}) (health_points: {self.health_points})"
@@ -81,6 +81,16 @@ class Elf(Character):
     character_name = "Elf"
     base_defense = 10
 
+    # если прцоент жизни противника меньше 30%, тогда урон нашего текущего существа увеличиваеться в 3 раза (*3)
+    def attack(self, *, target: "Character") -> None:
+
+        attack_power = self.attack_power
+        if target.health_points_percent() < 30:
+            attack_power = self.attack_power * 3
+
+        print(f"Elfs attack power = {attack_power}")
+        target.got_damage(damage=attack_power)
+
 
 # реализация боя между двумя существами (кто виживет?)
 def fight(*, character_1: Character, character_2: Character):
@@ -93,6 +103,8 @@ def fight(*, character_1: Character, character_2: Character):
     print(f"Character_2 -> {character_2} , is_alive -> {character_2.is_alive()}")
 
 
-ork_1 = Ork(level=5)
-ork_1.health_points = 39
-ork_1.health_points_percent
+ork_1 = Ork(level=1)
+ork_1.health_points = 29
+
+elf_1 = Elf(level=1)
+elf_1.attack(target=ork_1)
