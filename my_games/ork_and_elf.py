@@ -13,7 +13,7 @@ class Character:
         self.attack_power = self.base_attack_power * level
 
     # дает возможность текущему существу атаковать указаную цель
-    def attack(self, *, target: "Character"):
+    def attack(self, *, target: "Character") -> int:
 
         # указаная цель получает урон
         target.got_damage(damage=self.attack_power)
@@ -30,13 +30,22 @@ class Character:
 
     # указывает защиту персонажа
     @property
-    def defense(self):
+    def defense(self) -> int:
         defense = self.base_defense * self.level
         return defense
 
     # указывает что наше текущее существо(обьект класса) живое или нет
     def is_alive(self):
         return self.health_points > 0  # -> True/False
+
+    # возвращает максимальное значение существа
+    @property
+    def max_health_points(self) -> int:
+        return 1
+
+    # возвращает значение здоровья существа в процентах
+    def health_points_percent(self) -> float:
+        return self.health_points / self.max_health_points
 
     def __str__(self):
         return f"{self.character_name} -> (level:{self.level}) (health_points: {self.health_points})"
@@ -54,13 +63,15 @@ class Ork(Character):
 
     # пререопредиляем метод брони для нашего орка
     @property
-    def defense(self):
+    def defense(self) -> int:
 
         defense = super().defense
 
         # увичиваем броню если у орка здоровье меньше 50 очков
         if self.health_points < 50:
             defense *= 3
+
+        return defense
 
 
 class Elf(Character):
@@ -80,3 +91,8 @@ def fight(*, character_1: Character, character_2: Character):
 
     print(f"Character_1 -> {character_1} , is_alive -> {character_1.is_alive()}")
     print(f"Character_2 -> {character_2} , is_alive -> {character_2.is_alive()}")
+
+
+ork_1 = Ork(level=5)
+ork_1.health_points = 39
+ork_1.health_points_percent
