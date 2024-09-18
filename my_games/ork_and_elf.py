@@ -61,6 +61,7 @@ class Ork(Character):
     # базовое значение брони персонажа
     base_defense = 15
 
+    # уникальный перк орка
     # пререопредиляем метод брони для нашего орка
     @property
     def defense(self) -> int:
@@ -81,6 +82,7 @@ class Elf(Character):
     character_name = "Elf"
     base_defense = 10
 
+    # уникальный перк ельфа
     # если прцоент жизни противника меньше 30%, тогда урон нашего текущего существа увеличиваеться в 3 раза (*3)
     def attack(self, *, target: "Character") -> None:
 
@@ -88,7 +90,6 @@ class Elf(Character):
         if target.health_points_percent() < 30:
             attack_power = self.attack_power * 3
 
-        print(f"Elfs attack power = {attack_power}")
         target.got_damage(damage=attack_power)
 
 
@@ -104,7 +105,6 @@ def fight(*, character_1: Character, character_2: Character):
 
 
 ork_1 = Ork(level=1)
-ork_1.health_points = 29
-
 elf_1 = Elf(level=1)
-elf_1.attack(target=ork_1)
+
+fight(character_1=ork_1, character_2=elf_1)
