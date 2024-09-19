@@ -85,7 +85,7 @@ city = "London,UK"
 weather_by_hours = get_weather_by_hours_for_day_from_api(date=date, city=city)
 dangerous_hours = get_dangerous_hours(weather_by_hours=weather_by_hours)
 
-
-print(weather_by_hours)
-print("------------------------------------------------------")
-print(dangerous_hours)
+# выводим полученные значения
+# print(weather_by_hours)
+# print("------------------------------------------------------")
+# print(dangerous_hours)
