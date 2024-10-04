@@ -1,3 +1,6 @@
+# Реализация пользовательский(кастомных) Магических Методов
+
+
 # класс принимает количесвто секунд от пользователя и возвращает дату в нормальном формате
 class Clock:
 
@@ -54,13 +57,51 @@ class Clock:
         # возвращаем изменные тот же екзепляр, а не создаем новый екзепляр с новыми характеристиками
         return self
 
+    @classmethod
+    def __verify_data(cls, other):
+        if not isinstance(other, (int, Clock)):
+            raise TypeError("Right object must be integer number or type Clock")
 
-c1 = Clock(1000)
-c2 = Clock(2000)
-c3 = Clock(3000)
-с4 = c1 + c2 + c3
-с4.get_time()
+        return other if isinstance(other, int) else other.seconds
 
-my_object = Clock(5000)
-my_object += 10
-print(my_object.get_time())
+    # my_object1 == my_object2 реализация
+    # оператор равенства значений двух обьектов (именно значений, а не id)
+    # если не реализован my_object1 != my_object2 , тогда будет вызываться not (my_object1 == my_object2)
+    def __eq__(self, other):
+
+        sc = self.__verify_data(other)
+
+        return self.seconds == sc
+
+    # my_object1 < my_object2 реализация
+    # оператор меньше <
+    # если не реализован my_object1 > my_object2 , тогда будет my_object2 > my_object1
+
+    def __lt__(self, other):
+
+        sc = self.__verify_data(other)
+
+        return self.seconds < sc
+
+    # my_object1 <= my_object2 реализация
+    # оператор меньше или равно <=
+    # если не реализован my_object1 <= my_object2 , тогда будет my_object2 <= my_object1
+    def __le__(self, other):
+
+        sc = self.__verify_data(other)
+
+        return self.seconds < sc
+
+    # my_object1 > my_object2 реализация
+    # оператор больше >
+    def __gt__(self, other):
+
+        sc = self.__verify_data(other)
+
+        return self.seconds > sc
+
+
+c1 = Clock(4000)
+c2 = Clock(5000)
+
+print(c2 <= c1)
