@@ -32,3 +32,7 @@ def calculator(expression: str):
                 raise ValueError(
                     f"Expression must have two integer numbers and one math operator {allowed}"
                 )
+
+
+if __name__ == "__main__":
+    print(calculator("10-3"))
